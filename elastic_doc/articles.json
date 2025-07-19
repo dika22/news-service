@@ -1,0 +1,24 @@
+{
+    "mappings": {
+      "properties": {
+        "article": {
+          "properties": {
+            "id":    { "type": "integer" },
+            "title": { "type": "text" },
+            "body":  { "type": "text" },
+            "author": {
+              "properties": {
+                "id":   { "type": "integer" },
+                "name": { "type": "text" }
+              }
+            }
+          }
+        },
+        "created_at": {
+          "type": "date",
+          "format": "strict_date_time"
+        }
+      }
+    }
+  }
+  

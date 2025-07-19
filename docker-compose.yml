@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Golang service
+  golang:
+    image: golang:1.19
+    container_name: golang
+    working_dir: /go/src/app
+    volumes:
+      - ./app:/go/src/app
+    ports:
+      - "8080:8080"  # Port untuk aplikasi Go
+    environment:
+      - GO111MODULE=on
+      - GOPROXY=proxy.golang.org
+    networks:
+      - app-network
+    command: bash -c "cd /go/src/app && go run main.go"  # Sesuaikan dengan perintah untuk menjalankan aplikasi Go
+
+  # PostgreSQL service
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=adhika # sesuaikan dengan username PostgreSQL
+      - POSTGRES_PASSWORD=adhika # sesuaikan dengan password PostgreSQL
+      - POSTGRES_DB=news_service
+    volumes:
+      - postgres-data:/var/lib/postgresql/data  # Persistensi data
+    ports:
+      - "5432:5432"  # Port default PostgreSQL
+    networks:
+      - app-network
+
+  # Elasticsearch service
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.10.0
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"  # Port untuk akses Elasticsearch
+      - "9300:9300"  # Port internal
+    networks:
+      - app-network
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+
+  # Redis service
+  redis:
+    image: redis:6
+    container_name: redis
+    ports:
+      - "6379:6379"  # Port default Redis
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+  elasticsearch-data:
+
+networks:
+  app-network:
+    driver: bridge
