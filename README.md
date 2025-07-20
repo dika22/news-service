@@ -22,17 +22,26 @@ Service ini didevelop dengan:
 
 ```bash
 # clone repository
-git clone https://github.com/username/nama-proyek.git
+git clone https://github.com/dika22/news-service
 cd nama-proyek
 
 # set .env
 cp -R .env.copy to .env
 
 # generate swagger
-swag ini
+swag init
 
 # Cara menjalankan http 
 make http-serve
 
 # Cara menjalankan worker
 make start-worker
+
+# how run unit test
+make test
+```
+
+### How run use docker 
+```bash
+# run use docker
+docker compose up -d
