@@ -18,8 +18,13 @@ import (
 	"news-service/metrics"
 
 	"github.com/labstack/echo/v4"
+	"github.com/spf13/cast"
 	echoSwagger "github.com/swaggo/echo-swagger"
 	"github.com/urfave/cli/v2"
+
+	_ "news-service/docs"
+
+	echoMiddlerware "github.com/labstack/echo/v4/middleware"
 )
 
 const CmdServeHTTP = "serve-http"
@@ -42,8 +47,21 @@ func (h HTTP) ServeAPI(c *cli.Context) error  {
 		return c.JSON(http.StatusOK, "pong")
 	})
 
+	e.Use(echoMiddlerware.CORSWithConfig(echoMiddlerware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{http.MethodGet, http.MethodPost, http.MethodPut, http.MethodDelete},
+	}))
+	
+	fmt.Println("Rate limit config:", h.conf.RateLimitMaxToken, h.conf.RateLimitInterval, h.conf.RateLimitJitter)
+
 	// Configurable rate limiter
-	rl := middleware.NewRateLimiter(15, 1 * time.Second, 0.2) // 5 req / sec with 20% jitter
+	// 5 req / sec with 20% jitter
+	rl := middleware.NewRateLimiter(
+		cast.ToInt(h.conf.RateLimitMaxToken), 
+		time.Duration(cast.ToInt(h.conf.RateLimitInterval)) * time.Second, 
+		cast.ToFloat64(h.conf.RateLimitJitter),
+	) 
+
 	e.Use(middleware.RateLimiterMiddleware(rl))
 	articleAPI := e.Group("api/v1/articles")
 	articleAPI.Use(middleware.LoggerMiddleware)

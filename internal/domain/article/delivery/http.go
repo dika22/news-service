@@ -14,10 +14,16 @@ type ArticleHTTP struct{
 	uc usecase.IArticle
 }
 
-// List 	godoc
-// @Tags  	auth
-// @Status  200  {object}  structs.Response
-// @Router  /articles [get]
+// GetArticles godoc
+// @Summary      Get all articles
+// @Description  Get articles with optional search keyword
+// @Tags         articles
+// @Accept       json
+// @Produce      json
+// @Param        keyword  query     string  false  "Keyword for search"
+// @Param        page     query     int     false  "Page number"
+// @Success      200      {object}  structs.Response
+// @Router       /api/v1/articles [get]
 func (h ArticleHTTP) GetAll(c echo.Context) error {
 	ctx := c.Request().Context()
 	
@@ -41,10 +47,15 @@ func (h ArticleHTTP) GetAll(c echo.Context) error {
 }
 
 
-// Create 	godoc
-// @Tags  	auth
-// @Status  200  {object}  structs.Response
-// @Router  /articles [post]
+// CreateArticle godoc
+// @Summary      Create new article
+// @Description  Create article with title and body
+// @Tags         articles
+// @Accept       json
+// @Produce      json
+// @Param        request body structs.RequestCreateArticle true "Article to create"
+// @Success      201  {object}  structs.Response
+// @Router /api/v1/articles [post]
 func (h ArticleHTTP) Create(c echo.Context) error {
 	ctx := c.Request().Context()
 	req := &structs.RequestCreateArticle{}
