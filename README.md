@@ -27,8 +27,8 @@ cd nama-proyek
 
 # set .env
 cp -R .env.copy to .env
-# create name db
-# import table
+create name db
+import table
 
 # generate swagger
 swag init
@@ -41,6 +41,10 @@ make start-worker
 
 # how run unit test
 make test
+
+# how run swagger
+http://localhost:8001/swagger/index.html
+note : sesuaikan alamat url
 ```
 
 ### How run use docker 
