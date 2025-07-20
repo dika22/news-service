@@ -34,6 +34,13 @@ func (t *TaskWorker) Run(ctx context.Context) error {
 			err := t.mqClient.Consume(q, func(msg amqp.Delivery) {
 				if err := h(msg); err != nil {
 					fmt.Println("[Worker] Error handling", q, ":", err)
+					if nackErr := msg.Nack(false, true); nackErr != nil {
+						fmt.Println("[Worker] Failed to nack message:", nackErr)
+					}
+					return
+				}
+				if ackErr := msg.Ack(false); ackErr != nil {
+					fmt.Println("[Worker] Failed to ack message:", ackErr)
 				}
 			})
 			if err != nil {
@@ -42,7 +49,6 @@ func (t *TaskWorker) Run(ctx context.Context) error {
 		}()
 	}
 
-	fmt.Println("[Worker] All queues are listening. Press CTRL+C to stop.")
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
 	<-sigChan
@@ -53,12 +59,12 @@ func (t *TaskWorker) Run(ctx context.Context) error {
 
 func (t *TaskWorker) buildQueueHandlers(ctx context.Context) map[string]func(amqp.Delivery) error {
 	return map[string]func(amqp.Delivery) error{
-		t.conf.ArticleQueue: t.handleStoreArticle(ctx, t.esClient, t.conf.ArticleQueue),
+		t.conf.ArticleQueue: handleStoreArticle(ctx, t.esClient, t.cache, t.conf.ArticleQueue),
 	}
 }
 
 
-func (t *TaskWorker) handleStoreArticle(ctx context.Context, es *elasticsearch.Elasticsearch, indexName string) func(amqp.Delivery) error {
+func handleStoreArticle(ctx context.Context, es *elasticsearch.Elasticsearch, cache cacheRepo.CacheRepository, indexName string) func(amqp.Delivery) error {
 	return func(msg amqp.Delivery) error {
 		var article structs.PayloadMessageArticle
 		if err := json.Unmarshal(msg.Body, &article); err != nil {
@@ -69,7 +75,7 @@ func (t *TaskWorker) handleStoreArticle(ctx context.Context, es *elasticsearch.E
 			return  err
 		}
 
-		if err := t.cache.DeleteArticleKeys(ctx); err != nil {
+		if err := cache.DeleteArticleKeys(ctx); err != nil {
 			fmt.Println("error logs cache delete article keys", err)
 		}
 		return nil

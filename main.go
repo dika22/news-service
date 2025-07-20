@@ -54,7 +54,7 @@ func main() {
   // cmds = append(cmds, migrate.NewMigrate(dbConn)...)
   cmds = append(cmds, worker.StartWorker(conf, mqClient, esClient, cacheArticleRepo)...)
   app := &cli.App{
-    Name: "github.com/dika22/news-service",
+    Name: "news-service",
     Commands: cmds,
   }
 

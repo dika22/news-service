@@ -19,6 +19,8 @@ func (u *ArticleUsecase) GetAll(ctx context.Context, req structs.RequestSearchAr
 		}
 
 		dest = respES.NewResponseGetArticle()
+		dest.Limit = query["size"].(int)
+		dest.Page  = query["from"].(int) / dest.Limit + 1
 		if err := u.cache.Set(ctx, req, &dest); err != nil {
 			return structs.ResponseGetArticle{}, err
 		}

@@ -23,8 +23,6 @@ func (res ArticleESResponse) NewResponseGetArticle() ResponseGetArticle {
 		articles = append(articles, article)
 	}
 	return ResponseGetArticle{
-		Page:    res.Hits.Total.Value,
-		Limit:   res.Hits.Total.Value,
 		Total:   res.Hits.Total.Value,
 		Article: articles,
 	}

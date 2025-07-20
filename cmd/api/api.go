@@ -46,8 +46,8 @@ func (h HTTP) ServeAPI(c *cli.Context) error  {
 	e := echo.New();
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.GET("/ping", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, "pong")
+	e.GET("/health-check", func(c echo.Context) error {
+		return c.JSON(http.StatusOK, "ok!")
 	})
 
 	e.Use(echoMiddlerware.CORSWithConfig(echoMiddlerware.CORSConfig{
