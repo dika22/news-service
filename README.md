@@ -1,4 +1,4 @@
-# Nama Proyek
+# News Service
 
 Deskripsi singkat tentang proyek Golang ini.
 
@@ -18,13 +18,15 @@ Service ini didevelop dengan:
 - Queue: RabbitMQ
 - Tambahan: Docker
 
-## 🧑‍💻 Cara Menjalankan
-
-### Clone repositori
+## 🧑‍💻 How Run Service
 
 ```bash
+# clone repository
 git clone https://github.com/username/nama-proyek.git
 cd nama-proyek
+
+# set .env
+cp -R .env.copy to .env
 
 # generate swagger
 swag ini
@@ -33,4 +35,4 @@ swag ini
 make http-serve
 
 # Cara menjalankan worker
-make start-worke 
+make start-worker
