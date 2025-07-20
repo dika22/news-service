@@ -14,7 +14,7 @@ type Config struct {
 	ElasticsearchPassword     string `env:"ELASTICSEARCH_PASSWORD"`
 	ArticleQueue              string `env:"ARTICLE_QUEUE"`
 	ArticleIndex              string `env:"ARTICLE_INDEX"`
-	RateLimitMaxToken         string `env:"RATE_LIMIT_MAX_TOKEN"`
+	RateLimitMaxRequest       string `env:"RATE_LIMIT_MAX_REQUEST"`
 	RateLimitInterval         string `env:"RATE_LIMIT_INTERVAL"`
 	RateLimitJitter           string `env:"RATE_LIMIT_JITTER"`
 }

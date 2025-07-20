@@ -27,7 +27,7 @@ func (p *RequestSearchArticle) NewQuerySearchArticle() map[string]interface{} {
 		mustQueries = append(mustQueries, map[string]interface{}{
 			"multi_match": map[string]interface{}{
 				"query":  p.Keyword,
-				"fields": []string{"article.title", "article.body"},
+				"fields": []string{"article.title", "article.body", "article.author.name"},
 			},
 		})
 	}
@@ -40,7 +40,7 @@ func (p *RequestSearchArticle) NewQuerySearchArticle() map[string]interface{} {
 	sortField := "created_at"
 	sortOrder := "desc"
 	if p.OrderBy != "" {
-		sortOrder = p.OrderBy // Pastikan hanya "asc" atau "desc"
+		sortOrder = p.OrderBy //hanya "asc" atau "desc"
 	}
 
 	// Final query

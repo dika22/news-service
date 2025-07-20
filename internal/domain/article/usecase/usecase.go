@@ -2,15 +2,16 @@ package usecase
 
 import (
 	"context"
-	"news-service/internal/domain/article/repository"
-	authorRepo "news-service/internal/domain/author/repository"
 
-	"news-service/package/config"
-	"news-service/package/connection/elasticsearch"
-	rabbitmq "news-service/package/rabbit-mq"
-	"news-service/package/structs"
+	"github.com/dika22/news-service/internal/domain/article/repository"
+	authorRepo "github.com/dika22/news-service/internal/domain/author/repository"
 
-	repoCache "news-service/internal/domain/article/repository/cache"
+	"github.com/dika22/news-service/package/config"
+	"github.com/dika22/news-service/package/connection/elasticsearch"
+	rabbitmq "github.com/dika22/news-service/package/rabbit-mq"
+	"github.com/dika22/news-service/package/structs"
+
+	repoCache "github.com/dika22/news-service/internal/domain/article/repository/cache"
 )
 
 type IArticle interface{

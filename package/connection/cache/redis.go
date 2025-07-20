@@ -14,8 +14,8 @@ import (
 	"github.com/segmentio/encoding/json"
 	"github.com/spf13/cast"
 
-	"news-service/internal/constant"
-	"news-service/package/config"
+	"github.com/dika22/news-service/internal/constant"
+	"github.com/dika22/news-service/package/config"
 )
 
 const (

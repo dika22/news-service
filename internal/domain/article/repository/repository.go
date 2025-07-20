@@ -3,8 +3,9 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"news-service/package/connection/cache"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/connection/cache"
+	"github.com/dika22/news-service/package/structs"
 )
 
 type IRepository interface{

@@ -3,7 +3,8 @@ package repository
 import (
 	"context"
 	"log"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/structs"
 )
 
 func (r ArticleRepository) GetAll(ctx context.Context) ([]*structs.Articles, error) {

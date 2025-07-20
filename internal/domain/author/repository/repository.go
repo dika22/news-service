@@ -3,7 +3,8 @@ package repository
 import (
 	"context"
 	"database/sql"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/structs"
 )
 
 type AuthorRepository struct {

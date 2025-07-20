@@ -1,7 +1,7 @@
 package migrate
 
 import (
-	"news-service/package/structs"
+	"github.com/dika22/news-service/package/structs"
 
 	"github.com/urfave/cli/v2"
 	"gorm.io/gorm"

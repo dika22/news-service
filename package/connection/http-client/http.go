@@ -14,7 +14,7 @@ import (
 
 	"github.com/labstack/gommon/log"
 
-	"news-service/package/config"
+	"github.com/dika22/news-service/package/config"
 
 	"github.com/segmentio/encoding/json"
 )

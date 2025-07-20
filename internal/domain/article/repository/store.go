@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
-	"fmt"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/structs"
 )
 
 func (r ArticleRepository) Store(ctx context.Context, payload structs.Articles) (int64, error)  {
@@ -12,6 +12,5 @@ func (r ArticleRepository) Store(ctx context.Context, payload structs.Articles) 
 	if err != nil {
 		return 0, err
 	}
-	fmt.Println("Inserted ID:", id)
 	return id, nil
 }

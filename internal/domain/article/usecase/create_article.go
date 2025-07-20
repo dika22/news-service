@@ -4,7 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"log"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/structs"
 )
 
 func (u *ArticleUsecase) Create(ctx context.Context, req *structs.RequestCreateArticle) error {

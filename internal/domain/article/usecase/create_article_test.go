@@ -4,16 +4,16 @@ import (
 	"context"
 	"testing"
 
-	"news-service/internal/domain/article/repository/mocks"
-	"news-service/internal/domain/article/usecase"
-	authorMocks "news-service/internal/domain/author/repository/mocks"
-	"news-service/package/config"
-	"news-service/package/structs"
+	"github.com/dika22/news-service/internal/domain/article/repository/mocks"
+	"github.com/dika22/news-service/internal/domain/article/usecase"
+	authorMocks "github.com/dika22/news-service/internal/domain/author/repository/mocks"
+	"github.com/dika22/news-service/package/config"
+	"github.com/dika22/news-service/package/structs"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	mqMocks "news-service/package/rabbit-mq/mocks"
+	mqMocks "github.com/dika22/news-service/package/rabbit-mq/mocks"
 )
 
 func TestCreate_Success(t *testing.T) {

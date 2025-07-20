@@ -2,8 +2,9 @@ package repository
 
 import (
 	"context"
-	"news-service/package/connection/cache"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/connection/cache"
+	"github.com/dika22/news-service/package/structs"
 )
 
 type ArticleCacheRepository struct{
@@ -14,6 +15,7 @@ type ArticleCacheRepository struct{
 type CacheRepository interface{
 	Get(ctx context.Context, req structs.RequestSearchArticle, dest *structs.ResponseGetArticle) error
 	Set(ctx context.Context, req structs.RequestSearchArticle, dest *structs.ResponseGetArticle) error
+	DeleteArticleKeys(ctx context.Context) error
 }
 
 

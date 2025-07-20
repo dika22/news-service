@@ -11,7 +11,7 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"news-service/package/config"
+	"github.com/dika22/news-service/package/config"
 )
 
 type Database struct {

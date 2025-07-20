@@ -4,14 +4,16 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"news-service/package/config"
-	"news-service/package/connection/elasticsearch"
-	rabbitmq "news-service/package/rabbit-mq"
-	"news-service/package/structs"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"github.com/dika22/news-service/package/config"
+	"github.com/dika22/news-service/package/connection/elasticsearch"
+	rabbitmq "github.com/dika22/news-service/package/rabbit-mq"
+	"github.com/dika22/news-service/package/structs"
+
+	cacheRepo "github.com/dika22/news-service/internal/domain/article/repository/cache"
 	"github.com/streadway/amqp"
 )
 
@@ -19,6 +21,7 @@ type TaskWorker struct{
 	conf     *config.Config
 	mqClient *rabbitmq.RabbitMQClient
 	esClient *elasticsearch.Elasticsearch
+	cache    cacheRepo.CacheRepository
 }
 
 func (t *TaskWorker) Run(ctx context.Context) error {
@@ -50,12 +53,12 @@ func (t *TaskWorker) Run(ctx context.Context) error {
 
 func (t *TaskWorker) buildQueueHandlers(ctx context.Context) map[string]func(amqp.Delivery) error {
 	return map[string]func(amqp.Delivery) error{
-		t.conf.ArticleQueue: handleStoreArticle(ctx, t.esClient, t.conf.ArticleQueue),
+		t.conf.ArticleQueue: t.handleStoreArticle(ctx, t.esClient, t.conf.ArticleQueue),
 	}
 }
 
 
-func handleStoreArticle(ctx context.Context, es *elasticsearch.Elasticsearch, indexName string) func(amqp.Delivery) error {
+func (t *TaskWorker) handleStoreArticle(ctx context.Context, es *elasticsearch.Elasticsearch, indexName string) func(amqp.Delivery) error {
 	return func(msg amqp.Delivery) error {
 		var article structs.PayloadMessageArticle
 		if err := json.Unmarshal(msg.Body, &article); err != nil {
@@ -65,18 +68,23 @@ func handleStoreArticle(ctx context.Context, es *elasticsearch.Elasticsearch, in
 		if err := es.StoreToElasticsearch(ctx, newArticle); err != nil {
 			return  err
 		}
+
+		if err := t.cache.DeleteArticleKeys(ctx); err != nil {
+			fmt.Println("error logs cache delete article keys", err)
+		}
 		return nil
 	}
 }
 
 
-
-
-func NewTaskWorker(conf *config.Config, mq *rabbitmq.RabbitMQClient, es *elasticsearch.Elasticsearch) *TaskWorker {
+func NewTaskWorker(conf *config.Config, mq *rabbitmq.RabbitMQClient, 
+	es *elasticsearch.Elasticsearch,
+	cache cacheRepo.CacheRepository) *TaskWorker {
 	return &TaskWorker{
 		conf:     conf,
 		mqClient: mq,
 		esClient: es,
+		cache:    cache,
 	}
 }
 

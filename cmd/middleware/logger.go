@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/rs/zerolog/log"
 
-	"news-service/metrics"
+	"github.com/dika22/news-service/metrics"
 )
 
 func LoggerMiddleware(next echo.HandlerFunc) echo.HandlerFunc {

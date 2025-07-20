@@ -3,18 +3,19 @@ package usecase
 import (
 	"context"
 	"errors"
-	"news-service/internal/domain/article/repository/mocks"
-	authorMocks "news-service/internal/domain/author/repository/mocks"
-	"news-service/package/config"
-	mqMocks "news-service/package/rabbit-mq/mocks"
-	"news-service/package/structs"
 	"testing"
+
+	"github.com/dika22/news-service/internal/domain/article/repository/mocks"
+	authorMocks "github.com/dika22/news-service/internal/domain/author/repository/mocks"
+	"github.com/dika22/news-service/package/config"
+	mqMocks "github.com/dika22/news-service/package/rabbit-mq/mocks"
+	"github.com/dika22/news-service/package/structs"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	cacheMock "news-service/internal/domain/article/repository/cache/mocks"
-	esMocks "news-service/package/connection/elasticsearch/mocks"
+	cacheMock "github.com/dika22/news-service/internal/domain/article/repository/cache/mocks"
+	esMocks "github.com/dika22/news-service/package/connection/elasticsearch/mocks"
 )
 
 // -------------------- TEST ------------------------
@@ -78,7 +79,6 @@ func TestGetAll_SuccessFromES(t *testing.T) {
 	// Mocking Cache
 	mockCache.On("Get", mock.Anything, mock.Anything, mock.Anything).Return(errors.New("cache miss"))
 	mockCache.On("Set", mock.Anything, mock.Anything, mock.Anything).Return(nil)
-
 
 	u := &ArticleUsecase{
 		repo:     mockRepo,

@@ -2,22 +2,25 @@ package main
 
 import (
 	"log"
-	"news-service/internal/domain/article/repository"
-	"news-service/internal/domain/article/usecase"
-	authorRepository "news-service/internal/domain/author/repository"
-	"news-service/package/config"
-	"news-service/package/connection/cache"
-	database "news-service/package/connection/database/postgre"
-	"news-service/package/connection/elasticsearch"
-	rabbitmq "news-service/package/rabbit-mq"
 	"os"
 
-	api "news-service/cmd/api"
-	"news-service/cmd/worker"
+	"github.com/dika22/news-service/internal/domain/article/repository"
+	"github.com/dika22/news-service/internal/domain/article/usecase"
+	authorRepository "github.com/dika22/news-service/internal/domain/author/repository"
+	"github.com/dika22/news-service/package/config"
+	"github.com/dika22/news-service/package/connection/cache"
+	database "github.com/dika22/news-service/package/connection/database/postgre"
+	"github.com/dika22/news-service/package/connection/elasticsearch"
+	rabbitmq "github.com/dika22/news-service/package/rabbit-mq"
+
+	api "github.com/dika22/news-service/cmd/api"
+	"github.com/dika22/news-service/cmd/worker"
 
 	"github.com/urfave/cli/v2"
 
-	cacheRepo "news-service/internal/domain/article/repository/cache"
+	cacheRepo "github.com/dika22/news-service/internal/domain/article/repository/cache"
+
+	"github.com/dika22/news-service/package/validator"
 )
 
 func main() {
@@ -43,14 +46,15 @@ func main() {
   articleRepo := repository.NewsRepository(dbConn, cache)
   authorRepo := authorRepository.NewAuthorRepository(dbConn)
   cacheArticleRepo := cacheRepo.NewCacheRepository(cache)
+  validate := validator.NewValidator()
 
   usecase := usecase.NewsUsecase(articleRepo, authorRepo, mqClient, esClient, conf, cacheArticleRepo)
   cmds := []*cli.Command{}
-  cmds = append(cmds, api.ServeAPI(conf, usecase)...)
+  cmds = append(cmds, api.ServeAPI(conf, validate, usecase)...)
   // cmds = append(cmds, migrate.NewMigrate(dbConn)...)
-  cmds = append(cmds, worker.StartWorker(conf, mqClient, esClient)...)
+  cmds = append(cmds, worker.StartWorker(conf, mqClient, esClient, cacheArticleRepo)...)
   app := &cli.App{
-    Name: "news-service",
+    Name: "github.com/dika22/news-service",
     Commands: cmds,
   }
 

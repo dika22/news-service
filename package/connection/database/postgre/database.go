@@ -4,7 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"news-service/package/config"
+
+	"github.com/dika22/news-service/package/config"
 
 	_ "github.com/lib/pq"
 )

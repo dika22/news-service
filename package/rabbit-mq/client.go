@@ -3,8 +3,9 @@ package rabbitmq
 import (
 	"fmt"
 	"log"
-	"news-service/package/config"
 	"time"
+
+	"github.com/dika22/news-service/package/config"
 
 	"github.com/streadway/amqp"
 )

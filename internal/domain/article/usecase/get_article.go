@@ -2,7 +2,8 @@ package usecase
 
 import (
 	"context"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/structs"
 )
 
 func (u *ArticleUsecase) GetAll(ctx context.Context, req structs.RequestSearchArticle) (structs.ResponseGetArticle, error) {

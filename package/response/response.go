@@ -2,7 +2,8 @@ package response
 
 import (
 	"net/http"
-	"news-service/package/structs"
+
+	"github.com/dika22/news-service/package/structs"
 
 	"github.com/labstack/echo/v4"
 )

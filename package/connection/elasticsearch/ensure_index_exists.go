@@ -3,9 +3,10 @@ package elasticsearch
 import (
 	"context"
 	"fmt"
-	"news-service/package/utils"
 	"os"
 	"strings"
+
+	"github.com/dika22/news-service/package/utils"
 )
 
 func (es *Elasticsearch) EnsureIndexExistsFromFile(ctx context.Context, indexName string, fileNameDoc string) error {

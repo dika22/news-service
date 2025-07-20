@@ -27,6 +27,8 @@ cd nama-proyek
 
 # set .env
 cp -R .env.copy to .env
+# create name db
+# import table
 
 # generate swagger
 swag init

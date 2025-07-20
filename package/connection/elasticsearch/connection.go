@@ -3,7 +3,8 @@ package elasticsearch
 import (
 	"context"
 	"fmt"
-	"news-service/package/config"
+
+	"github.com/dika22/news-service/package/config"
 
 	"github.com/elastic/go-elasticsearch/v7"
 )
