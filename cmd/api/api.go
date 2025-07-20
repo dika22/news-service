@@ -92,7 +92,7 @@ func ServeAPI(conf *config.Config, v *validator.Validator, usecase usecase.IArti
 	return []*cli.Command{
 		{
 			Name: CmdServeHTTP,
-			Usage: "Serve Document Service",
+			Usage: "Serve News Service",
 			Action: h.ServeAPI,
 		},
 	}
