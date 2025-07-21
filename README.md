@@ -51,7 +51,7 @@ note : sesuaikan alamat url
 ```bash
 # run use docker
 # Jalankan HTTP server
-docker-compose up golang
+docker-compose up news-service #sesuaikan nama app jika perlu
 
 # Jalankan worker background
 docker-compose up worker
