@@ -42,7 +42,7 @@ make start-worker
 # how run unit test
 make test
 
-# how run swagger
+# how run swagger port sesuaikan dengan yang di .env
 http://localhost:8001/swagger/index.html
 note : sesuaikan alamat url
 ```
@@ -50,4 +50,11 @@ note : sesuaikan alamat url
 ### How run use docker 
 ```bash
 # run use docker
-docker compose up -d
+# Jalankan HTTP server
+docker-compose up golang
+
+# Jalankan worker background
+docker-compose up worker
+
+# Jalankan test
+docker-compose run test
