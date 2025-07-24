@@ -4,12 +4,14 @@ Deskripsi singkat tentang proyek Golang ini.
 
 ## 🚀 Fitur
 
-- Create Article
-- Get Article
+- Create Article [status : draft]
+- Update Article [status : publish]
+- Get Articles
+- Get Article by ID
 
 ## Implementation
 - Ratelimit -> handle by ip per request second
-- Singleflight -> handle if many request and cache expired, hanya ada 1 request dari banya request untuk melakukan query ke DB
+- Singleflight -> if many request and cache expired, hanya ada 1 request dari banyaknya request untuk melakukan query ke DB
 
 ## 🛠️ Teknologi
 
@@ -62,3 +64,9 @@ docker-compose up worker
 
 # Jalankan test
 docker-compose run test
+
+## Diagram Activity
+# Create Article
+![Image Create](images/create_article.png)
+# Update Article
+![Image Update](images/update_article.png)
