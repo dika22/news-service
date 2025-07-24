@@ -64,6 +64,7 @@ docker-compose up worker
 
 # Jalankan test
 docker-compose run test
+```
 
 ## Diagram Activity
 # Create Article
