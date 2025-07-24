@@ -11,6 +11,8 @@ import (
 type IRepository interface{
 	GetAll(ctx context.Context) ([]*structs.Articles, error)
 	Store(ctx context.Context, payload structs.Articles) (int64, error)
+	Update(ctx context.Context, payload *structs.RequestUpdatePublishArticle) (int64, error)
+	GetByID(ctx context.Context, id int64) (structs.Articles, error)
 }
 
 

@@ -7,6 +7,10 @@ Deskripsi singkat tentang proyek Golang ini.
 - Create Article
 - Get Article
 
+## Implementation
+- Ratelimit -> handle by ip per request second
+- Singleflight -> handle if many request and cache expired, hanya ada 1 request dari banya request untuk melakukan query ke DB
+
 ## 🛠️ Teknologi
 
 Service ini didevelop dengan:

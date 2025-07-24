@@ -45,6 +45,34 @@ func (_m *IRepository) GetAll(ctx context.Context) ([]*structs.Articles, error) 
 	return r0, r1
 }
 
+// GetByID provides a mock function with given fields: ctx, id
+func (_m *IRepository) GetByID(ctx context.Context, id int64) (structs.Articles, error) {
+	ret := _m.Called(ctx, id)
+
+	if len(ret) == 0 {
+		panic("no return value specified for GetByID")
+	}
+
+	var r0 structs.Articles
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, int64) (structs.Articles, error)); ok {
+		return rf(ctx, id)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, int64) structs.Articles); ok {
+		r0 = rf(ctx, id)
+	} else {
+		r0 = ret.Get(0).(structs.Articles)
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, int64) error); ok {
+		r1 = rf(ctx, id)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // Store provides a mock function with given fields: ctx, payload
 func (_m *IRepository) Store(ctx context.Context, payload structs.Articles) (int64, error) {
 	ret := _m.Called(ctx, payload)
@@ -65,6 +93,34 @@ func (_m *IRepository) Store(ctx context.Context, payload structs.Articles) (int
 	}
 
 	if rf, ok := ret.Get(1).(func(context.Context, structs.Articles) error); ok {
+		r1 = rf(ctx, payload)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
+// Update provides a mock function with given fields: ctx, payload
+func (_m *IRepository) Update(ctx context.Context, payload *structs.RequestUpdatePublishArticle) (int64, error) {
+	ret := _m.Called(ctx, payload)
+
+	if len(ret) == 0 {
+		panic("no return value specified for Update")
+	}
+
+	var r0 int64
+	var r1 error
+	if rf, ok := ret.Get(0).(func(context.Context, *structs.RequestUpdatePublishArticle) (int64, error)); ok {
+		return rf(ctx, payload)
+	}
+	if rf, ok := ret.Get(0).(func(context.Context, *structs.RequestUpdatePublishArticle) int64); ok {
+		r0 = rf(ctx, payload)
+	} else {
+		r0 = ret.Get(0).(int64)
+	}
+
+	if rf, ok := ret.Get(1).(func(context.Context, *structs.RequestUpdatePublishArticle) error); ok {
 		r1 = rf(ctx, payload)
 	} else {
 		r1 = ret.Error(1)

@@ -34,9 +34,10 @@ type Source struct {
 }
 
 type ArticleEs struct {
-	ID     int64        `json:"id"`
-	Title  string     `json:"title"`
-	Body   string     `json:"body"`
+	ID       int64        `json:"id"`
+	Title    string     `json:"title"`
+	Body     string     `json:"body"`
+	Status   int `json:"status"`
 	AuthorEs AuthorEs `json:"author"`
 }
 

@@ -12,6 +12,7 @@ type Article struct {
 	ID       	int64      `json:"id"`
 	Title    	string     `json:"title"`
 	Body     	string     `json:"body"`
+	Status      interface{}       `json:"status"`
 	Author   	Author     `json:"author"`
 }
 

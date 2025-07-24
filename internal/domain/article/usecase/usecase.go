@@ -5,6 +5,7 @@ import (
 
 	"github.com/dika22/news-service/internal/domain/article/repository"
 	authorRepo "github.com/dika22/news-service/internal/domain/author/repository"
+	"golang.org/x/sync/singleflight"
 
 	"github.com/dika22/news-service/package/config"
 	"github.com/dika22/news-service/package/connection/elasticsearch"
@@ -17,6 +18,8 @@ import (
 type IArticle interface{
 	GetAll(ctx context.Context, req structs.RequestSearchArticle) (structs.ResponseGetArticle, error)
 	Create(ctx context.Context, req *structs.RequestCreateArticle) error
+	UpdatePublishArticle(ctx context.Context, req *structs.RequestUpdatePublishArticle) error
+	GetByID(ctx context.Context, id int64) (structs.Article, error)
 }
 
 type ArticleUsecase struct{
@@ -26,6 +29,7 @@ type ArticleUsecase struct{
 	esClient elasticsearch.ElasticsearchClient
 	conf     *config.Config
 	cache repoCache.CacheRepository
+	group singleflight.Group
 }
 
 

@@ -2,14 +2,16 @@ package config
 
 import (
 	"fmt"
-	"github.com/joho/godotenv"
 	"os"
 	"reflect"
 	"regexp"
+
+	"github.com/joho/godotenv"
 )
 
 func LoadEnv() {
 	dir, _ := os.Getwd()
+	fmt.Println("debug macth", dir)
 	dir += "/"
 	match, _ := regexp.Match(`/internal/domain/.+/(delivery)`, []byte(dir))
 	if match {
@@ -34,6 +36,8 @@ func LoadEnv() {
 	}
 
 	envFile := fmt.Sprintf("%v%v", dir, ".env")
+
+	// fmt.Println("debug", envFile)
 	godotenv.Load(envFile)
 }
 
