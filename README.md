@@ -67,6 +67,7 @@ docker-compose run test
 
 ## Diagram Activity
 # Create Article
-![Image Create](images/create_article.png)
+![alt text](https://github.com/dika22/news-service/blob/master/create_article.png?raw=true)
+
 # Update Article
-![Image Update](images/update_article.png)
+![alt text](https://github.com/dika22/news-service/blob/master/update_article.png?raw=true)
